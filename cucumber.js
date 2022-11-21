@@ -4,5 +4,8 @@ module.exports = {
     formatOptions: {
       snippetInterface: 'synchronous'
     },
+    worldParameters: {
+      defaultTimeout: '15000'
+    }
   },
 };
