@@ -1,0 +1,9 @@
+name: Test circuit application
+
+on: push
+
+jobs:
+  run-test-framework:
+    uses: ./.github/workflows/dispatch-testing.yml
+    with:
+      app_env: develop
