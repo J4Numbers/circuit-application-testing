@@ -1,0 +1,34 @@
+{
+  "name": "circuit-application-testing",
+  "version": "1.0.0",
+  "description": "A set of application tests for the circuit webapp",
+  "main": "cucumber.js",
+  "scripts": {
+    "test": "cucumber-js",
+    "test:help": "cucumber-js --help"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/J4Numbers/circuit-application-testing.git"
+  },
+  "keywords": [
+    "application",
+    "testing",
+    "webdriver",
+    "integration",
+    "testing",
+    "circuit"
+  ],
+  "author": "J4numbers <jayne.doe@engineering.digital.dwp.gov.uk>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/J4Numbers/circuit-application-testing/issues"
+  },
+  "homepage": "https://github.com/J4Numbers/circuit-application-testing#readme",
+  "devDependencies": {
+    "@cucumber/cucumber": "8.8.0",
+    "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1",
+    "selenium-webdriver": "4.6.1"
+  }
+}
