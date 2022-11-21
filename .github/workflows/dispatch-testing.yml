@@ -5,6 +5,12 @@ on:
         required: true
         type: string
 
+  workflow_dispatch:
+    inputs:
+      app_env:
+        required: true
+        type: string
+
 name: Run testing framework against a given build
 
 env:

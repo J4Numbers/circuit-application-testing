@@ -6,14 +6,7 @@ const edge = require('selenium-webdriver/edge');
 
 const fs = require('fs');
 
-const builder = (url) => new webdriver.Builder()
-  .forBrowser(webdriver.Browser.FIREFOX)
-  .usingServer(url)
-  .setChromeOptions(chrome.Options)
-  .setFirefoxOptions(firefox.Options)
-  .setSafariOptions(safari.Options)
-  .setEdgeOptions(edge.Options)
-  .build();
+const builder = (url) =>
 
 module.exports = {
   builder,
