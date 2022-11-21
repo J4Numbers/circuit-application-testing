@@ -1,0 +1,52 @@
+on:
+  workflow_call:
+    inputs:
+      app_env:
+        required: true
+        type: string
+
+name: Run testing framework against a given build
+
+env:
+  default_node_version: 16.x
+
+jobs:
+  test:
+    name: Test docker image
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.app_env }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build docker services
+        uses: isbang/compose-action@v1.4.1
+        with:
+          compose-file: ./docker-compose.yml
+        env:
+          CIRCUIT_APP: ${{ inputs.app_env }}
+
+      # Todo: replace with an actual healthcheck
+      - name: Sleep until healthy
+        run: sleep 30s
+        shell: bash
+
+      - name: Use Node.js ${{ env.default_node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.default_node_version }}
+
+      - name: Perform tests
+        run: |
+          npm i
+          npm run test
+
+      - name: Upload cucumber outputs
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          # Artifact name
+          name: cucumber-output-details
+          # Destination path
+          path: outputs/

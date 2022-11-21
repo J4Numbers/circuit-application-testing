@@ -1,0 +1,66 @@
+version: "3.5"
+services:
+  selenium-hub:
+    image: "selenium/hub:latest"
+    shm_size: "2gb"
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+    environment:
+      - SE_NODE_SESSION_TIMEOUT=60
+    networks:
+      - circuit-net
+
+  chrome:
+    image: "selenium/node-chrome:107.0-20221104"
+    shm_size: "2gb"
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    depends_on:
+      - selenium-hub
+    networks:
+      - circuit-net
+
+  firefox:
+    image: "selenium/node-firefox:106.0-20221104"
+    shm_size: "2gb"
+    ports:
+      - "7900:7900"
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    depends_on:
+      - selenium-hub
+    networks:
+      - circuit-net
+
+  edge:
+    image: "selenium/node-edge:107.0-20221104"
+    shm_size: "2gb"
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    depends_on:
+      - selenium-hub
+    networks:
+      - circuit-net
+
+  circuit-app:
+    image: "ghcr.io/j4numbers/circuit-app:${CIRCUIT_APP:-develop}"
+    ports:
+      - "8080:8080"
+    environment:
+      - APP_HOSTNAME=circuit-app
+      - APP_SESSION_HOSTNAME=circuit-app
+      - APP_PORT=8080
+    networks:
+      - circuit-net
+
+networks:
+  circuit-net:
+    name: circuit-net
