@@ -7,6 +7,7 @@ import edge from 'selenium-webdriver/edge.js';
 export default class BrowserWorld extends World {
   webdriver = null;
   seleniumServer;
+  appUrl;
 
   constructor(opts) {
     super(opts);
@@ -14,6 +15,11 @@ export default class BrowserWorld extends World {
       this.seleniumServer = opts.seleniumServer;
     } else {
       this.seleniumServer = 'http://localhost:4444';
+    }
+    if (Object.prototype.hasOwnProperty.call(opts, 'appUrl')) {
+      this.appUrl = opts.appUrl;
+    } else {
+      this.appUrl = 'http://localhost:8080'
     }
   }
 

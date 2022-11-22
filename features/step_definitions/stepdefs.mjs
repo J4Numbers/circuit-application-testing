@@ -46,12 +46,35 @@ Given('I am looking at the login page', async function () {
   return await this.webdriver.get(`${baseUrl}/login`);
 });
 
+Given('I am looking at the create new holiday page', async function () {
+  return await this.webdriver.get(`${baseUrl}/manager/add`);
+})
+
+When('I click on the calendar link', async function () {
+  const actioner = await this.webdriver.actions();
+  return actioner
+    .click(this.webdriver.findElement(By.linkText('Calendar view')))
+    .perform();
+})
+
 When('I load the homepage', async function () {
   return await this.webdriver.get(baseUrl);
 });
 
 When('I load the login page', async function () {
   return await this.webdriver.get(`${baseUrl}/login`);
+});
+
+When('I load the calendar page', async function () {
+  return await this.webdriver.get(`${baseUrl}/calendar`);
+});
+
+When('I load the manager page', async function () {
+  return await this.webdriver.get(`${baseUrl}/manager`);
+});
+
+When('I load the create new holiday page', async function () {
+  return await this.webdriver.get(`${baseUrl}/manager/add`);
 });
 
 When('I submit a username of {string} and a password of {string}', async function (username, password) {
@@ -65,6 +88,19 @@ When('I submit a username of {string} and a password of {string}', async functio
     .perform();
 });
 
+When('I submit a title of {string} and a date of {string} and notes of {string}', async function (title, date, notes) {
+  const actioner = await this.webdriver.actions();
+  return actioner
+    .click(this.webdriver.findElement(By.name('holiday-title')))
+    .sendKeys(title)
+    .click(this.webdriver.findElement(By.name('holiday-date')))
+    .sendKeys(date)
+    .click(this.webdriver.findElement(By.name('holiday-notes')))
+    .sendKeys(notes)
+    .click(this.webdriver.findElement(By.id('holiday-submit')))
+    .perform();
+})
+
 Then('I am on the homepage', async function () {
   await this.webdriver.wait(until.elementLocated(By.linkText('Working day calendar')), 5000);
   return chai.expect(this.webdriver.getCurrentUrl()).to.eventually.equal(`${baseUrl}/`);
@@ -73,6 +109,16 @@ Then('I am on the homepage', async function () {
 Then('I am on the login page', async function () {
   await this.webdriver.wait(until.elementLocated(By.name('login-name')), 5000);
   return chai.expect(this.webdriver.getCurrentUrl()).to.eventually.equal(`${baseUrl}/login`);
+});
+
+Then('I am on the calendar page', async function () {
+  await this.webdriver.wait(until.elementLocated(By.className('calendar-date')), 5000);
+  return chai.expect(this.webdriver.getCurrentUrl()).to.eventually.equal(`${baseUrl}/calendar`)
+});
+
+Then('I am on the manager page', async function () {
+  await this.webdriver.wait(until.elementLocated(By.className('calendar-date')), 5000);
+  return chai.expect(this.webdriver.getCurrentUrl()).to.eventually.equal(`${baseUrl}/manager`)
 });
 
 Then('I have the option to log in', async function () {
