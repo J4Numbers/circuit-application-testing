@@ -11,13 +11,13 @@ export default class BrowserWorld extends World {
 
   constructor(opts) {
     super(opts);
-    if (Object.prototype.hasOwnProperty.call(opts, 'seleniumServer')) {
-      this.seleniumServer = opts.seleniumServer;
+    if (Object.prototype.hasOwnProperty.call(opts.parameters, 'seleniumServer')) {
+      this.seleniumServer = opts.parameters.seleniumServer;
     } else {
       this.seleniumServer = 'http://localhost:4444';
     }
-    if (Object.prototype.hasOwnProperty.call(opts, 'appUrl')) {
-      this.appUrl = opts.appUrl;
+    if (Object.prototype.hasOwnProperty.call(opts.parameters, 'appUrl')) {
+      this.appUrl = opts.parameters.appUrl;
     } else {
       this.appUrl = 'http://localhost:8080'
     }

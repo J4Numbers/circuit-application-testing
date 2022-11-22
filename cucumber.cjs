@@ -14,5 +14,8 @@ module.exports = {
       seleniumServer: 'http://localhost:4444',
       appUrl: 'http://circuit-app:8080',
     },
+    import: [
+      'stepdefs/*.mjs'
+    ]
   },
 };
