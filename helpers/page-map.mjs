@@ -1,12 +1,12 @@
 const pageLinks = {
-  'home': '/',
-  'login': '/login',
-  'calendar': '/calendar',
-  'manager': '/manager',
+  home: '/',
+  login: '/login',
+  calendar: '/calendar',
+  manager: '/manager',
   'create new holiday': '/manager/add',
-}
+};
 
-export default function (inputWord) {
+export default (inputWord) => {
   if (Object.prototype.hasOwnProperty.call(pageLinks, inputWord)) {
     return pageLinks[inputWord];
   }
