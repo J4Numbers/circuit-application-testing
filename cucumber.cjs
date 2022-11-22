@@ -1,6 +1,7 @@
 module.exports = {
   default: {
-    format: ['html:outputs/cucumber.html'],
+    parallel: 3,
+    format: ['json:outputs/cucumber.json'],
     formatOptions: {
       snippetInterface: 'synchronous'
     },

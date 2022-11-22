@@ -18,9 +18,8 @@ env:
 
 jobs:
   test:
-    name: Test docker image
+    name: Test docker image of tag ${{ inputs.app_env }}
     runs-on: ubuntu-latest
-    environment: ${{ inputs.app_env }}
 
     steps:
       - name: Checkout
@@ -46,7 +45,11 @@ jobs:
       - name: Perform tests
         run: |
           npm i
-          npm run test
+          npm run test:cucumber
+
+      - name: Prepare reports
+        if: always()
+        run: npm run report:cucumber
 
       - name: Upload cucumber outputs
         uses: actions/upload-artifact@v3
