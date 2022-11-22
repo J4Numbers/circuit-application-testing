@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "A set of application tests for the circuit webapp",
   "main": "cucumber.js",
+  "type": "module",
   "scripts": {
-    "test": "cucumber-js",
-    "test:help": "cucumber-js --help"
+    "test": "npm run test:cucumber || npm run report:cucumber",
+    "test:cucumber": "cucumber-js",
+    "test:help": "cucumber-js --help",
+    "report:cucumber": "node cucumber-report.js"
   },
   "repository": {
     "type": "git",
@@ -26,9 +29,12 @@
   },
   "homepage": "https://github.com/J4Numbers/circuit-application-testing#readme",
   "devDependencies": {
+    "@axe-core/webdriverjs": "^4.5.2",
     "@cucumber/cucumber": "8.8.0",
+    "axe-html-reporter": "^2.2.3",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
+    "cucumber-html-reporter": "^5.5.0",
     "selenium-webdriver": "4.6.1"
   }
 }

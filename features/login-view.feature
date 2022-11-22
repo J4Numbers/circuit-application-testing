@@ -16,3 +16,15 @@ Feature: The login journeys for when a user attempts to log into the site
     When I load the login page
     Then I am on the homepage
     And I have the option to log out
+
+  Scenario Outline: I, when entering incorrect credentials, should be shown appropriate errors
+    Given I have already visited the site as an anonymous user
+    And I am looking at the login page
+    When I submit a username of '<username>' and a password of '<password>'
+    Then an error should be shown for the '<field_name>' field of '<error_message>'
+
+    Examples:
+    | username  | password  | field_name     | error_message                                     |
+    |           | password  | login-name     | Please fill in your username                      |
+    | username  |           | login-password | Please fill in your password                      |
+    | incorrect | incorrect | login          | Unable to find identity which matched credentials |
