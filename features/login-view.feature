@@ -17,11 +17,18 @@ Feature: The login journeys for when a user attempts to log into the site
     Then I am on the home page
     And I have the option to log out
 
+  Scenario: I, when entering no credentials while logging in, should be shown two errors
+    Given I have already visited the site as an anonymous user
+    And I am looking at the 'login' page
+    When I submit a username of '' and a password of ''
+    Then 2 errors should be shown within an error summary
+
   Scenario Outline: I, when entering incorrect credentials, should be shown appropriate errors
     Given I have already visited the site as an anonymous user
     And I am looking at the 'login' page
     When I submit a username of '<username>' and a password of '<password>'
-    Then an error should be shown for the '<field_name>' field of '<error_message>'
+    Then 1 error should be shown within an error summary
+    And an error should be shown for the '<field_name>' field of '<error_message>'
 
     Examples:
     | username  | password  | field_name     | error_message                                     |
