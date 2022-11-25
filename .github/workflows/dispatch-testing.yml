@@ -38,18 +38,14 @@ jobs:
         shell: bash
 
       - name: Use Node.js ${{ env.default_node_version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.default_node_version }}
 
       - name: Perform tests
         run: |
           npm i
-          npm run test:cucumber
-
-      - name: Prepare reports
-        if: always()
-        run: npm run report:cucumber
+          npm t
 
       - name: Upload cucumber outputs
         uses: actions/upload-artifact@v3
