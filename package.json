@@ -5,9 +5,15 @@
   "main": "cucumber.js",
   "type": "module",
   "scripts": {
-    "test": "npm run test:cucumber || npm run report:cucumber",
-    "test:cucumber": "cucumber-js",
+    "test": "npm run report:clean && npm run test:firefox & npm run test:chrome & npm run test:edge & wait",
+    "test:firefox": "npm run test:cucumber:firefox ; npm run report:cucumber -- firefox",
+    "test:chrome": "npm run test:cucumber:chrome ; npm run report:cucumber -- chrome",
+    "test:edge": "npm run test:cucumber:edge ; npm run report:cucumber -- edge",
+    "test:cucumber:firefox": "SELENIUM_BROWSER=firefox cucumber-js -p firefox",
+    "test:cucumber:chrome": "SELENIUM_BROWSER=chrome cucumber-js -p chrome",
+    "test:cucumber:edge": "SELENIUM_BROWSER=MicrosoftEdge cucumber-js -p edge",
     "test:help": "cucumber-js --help",
+    "report:clean": "rm -f outputs/cucumber.* outputs/artifacts outputs/screenshots",
     "report:cucumber": "node cucumber-report.js"
   },
   "repository": {
@@ -36,6 +42,7 @@
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
     "cucumber-html-reporter": "^5.5.0",
+    "eslint-plugin-cucumber": "^2.0.0",
     "selenium-webdriver": "4.6.1"
   }
 }
